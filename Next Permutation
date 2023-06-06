@@ -1,0 +1,25 @@
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n=nums.size();
+        int i;
+        for(i=n-2;i>=0;i--){
+            if(nums[i]<nums[i+1]){
+                break;
+            }
+        }
+        if(i==-1){
+            reverse(nums.begin(),nums.end());
+        }
+        else{
+            int p=i;
+            for(int i=n-1;i>p;i--){
+                if(nums[i]>nums[p]){
+                    swap(nums[i],nums[p]);
+                    break;
+                }
+            }
+            reverse(nums.begin()+p+1,nums.end());
+        }
+        
+    }
+};
