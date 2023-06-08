@@ -1,0 +1,21 @@
+vector<int> Solution::repeatedNumber(const vector<int> &A) {
+    vector<int> ret(2);
+    long long sumOfA = 0, sumOfA2 = 0;
+    long long temp;
+    int retA, retB;
+    int n = A.size();
+    for (int i = 0; i < n; i++) {
+        temp = A[i];
+        sumOfA += temp;
+        sumOfA2 += temp*temp;
+        temp = i + 1;
+        sumOfA -= temp;
+        sumOfA2 -= temp*temp;
+    }
+    sumOfA2 = sumOfA2/sumOfA;
+    retA = (int)((sumOfA + sumOfA2)/2);
+    retB = (int)(sumOfA2-retA);
+    ret[0] = retA;
+    ret[1] = retB;
+    return ret;
+}
