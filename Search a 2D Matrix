@@ -1,0 +1,43 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& m, int t) {
+        int i=0,j=m.size()-1;
+        int mid;
+        int q=m[0].size()-1;
+        while(i<=j){
+            
+            mid=i+(j-i)/2;
+            
+            if(t<=m[mid][q] && t>=m[mid][0]){
+                break;
+            }
+            else if(m[mid][q]<t){
+                i=mid+1;
+            }
+            else{
+                j=mid-1;
+            }
+        }
+        
+        int p=0;
+        while(p<=q){
+            int mid1=p+(q-p)/2;
+            
+            if(m[mid][mid1]==t ){
+                
+                return true;
+                
+            }
+            
+            else if(m[mid][mid1]<t){
+                p=mid1+1;
+
+            }
+            else{
+                q=mid1-1;
+            }
+            
+        }
+        return false;
+    }
+};
