@@ -1,0 +1,23 @@
+class Solution{
+    public:
+    int maxLen(vector<int>&A, int n)
+    {   
+        unordered_map<int,int> ps;
+        
+        int sum=0;
+        int ans=0;
+        ps[0]=-1;
+        for(int i=0;i<n;i++){
+            sum+=A[i];
+            if(ps.find(sum)!=ps.end()){
+                ans=max(ans,i-ps[sum]);
+            }
+            else{
+                ps[sum]=i;
+            }
+            
+        }
+        return ans;
+        // Your code here
+    }
+};
