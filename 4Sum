@@ -1,0 +1,38 @@
+#define in long long
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        sort(nums.begin(),nums.end());
+        vector<vector<int>>ans;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            if(i>0 && nums[i]==nums[i-1])continue;
+            for(int j=i+1;j<n;j++){
+                if(j!=i+1 && nums[j]==nums[j-1])continue;
+                int p=j+1;
+                int q=n-1;
+                in sum1=nums[i]+nums[j];
+                in needed=target-sum1;
+                while(p<q){
+                    if(nums[p]+nums[q]==needed){
+                        vector<int>t={nums[i],nums[j],nums[p],nums[q]};
+                        ans.push_back(t);
+                        p++;
+                        q--;
+                        while(p<q && nums[p]==nums[p-1])p++;
+                        while(p<q && nums[q]==nums[q+1])q--;
+                        
+                        
+                    }
+                    else if(nums[p]+nums[q]<needed){
+                        p++;
+                    }
+                    else{
+                        q--;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
