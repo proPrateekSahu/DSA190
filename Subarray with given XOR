@@ -1,0 +1,15 @@
+int Solution::solve(vector<int> &A, int B) {
+    unordered_map<int,int>pxor;
+    int xr=0;
+    int n=A.size();
+    int count=0;
+    pxor[0]=1;
+    for(int i=0;i<n;i++){
+        xr=xr ^ A[i];
+        if(pxor.find(xr ^ B)!=pxor.end()){
+            count+=pxor[xr ^ B];    
+        }
+        pxor[xr]++;
+        }
+    return count;
+}
