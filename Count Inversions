@@ -1,0 +1,54 @@
+#define ll long long
+class Solution{
+  public:
+    // arr[]: Input Array
+    // N : Size of the Array arr[]
+    // Function to count inversions in the array.
+    ll count=0;
+    void merge(ll a[],ll l, ll mid, ll r){
+        ll n=mid-l+1;
+        ll m=r-mid;
+        
+        ll left[n];
+        ll right[m];
+        for(int i=0;i<n;i++){left[i]=a[l+i];}
+        for(int i=0;i<m;i++){right[i]=a[mid+1+i];}
+        ll i=0,j=0,k=l;
+        while(i<n && j<m){
+            if(left[i]<=right[j]){
+                a[k++]=left[i];
+                i++;
+            }
+            else{
+                a[k++]=right[j];
+                count+=n-1-i+1;
+                j++;
+            }
+        }
+        while(i<n){
+            a[k++]=left[i++];
+        }
+        while(j<m){
+            a[k++]=right[j++];
+            
+        }
+    }
+    
+    void mergesort(ll a[], ll i, ll j ){
+        if(i<j){
+        ll mid=i+(j-i)/2;
+        mergesort(a,i,mid);
+        mergesort(a,mid+1,j);
+        merge(a,i,mid,j);}
+        
+    }
+    
+    long long int inversionCount(long long arr[], long long N)
+    {
+        
+        mergesort(arr,0,N-1);
+        return count;
+        // Your Code Here
+    }
+
+};
