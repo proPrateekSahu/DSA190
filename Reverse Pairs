@@ -1,0 +1,68 @@
+#define ll long long
+class Solution {
+public:
+    int count=0;
+    void merge(vector<int>&a,int i, int mid, int j){
+        vector<ll>p;
+        vector<ll>q;
+        for(int m=i;m<=mid;m++){
+            p.push_back(a[m]);
+        }
+        for(int m=mid+1;m<=j;m++){
+            q.push_back(a[m]);
+        }
+        int q1=0,w=0;
+        int l=p.size();
+        int r=q.size();
+        
+        int t=0;
+        while(q1<l && w<r){
+            if(p[q1]>2*q[w]){
+                // count+=l-q1;
+                // q1++;
+                t++;
+                w++;
+            }
+            else{
+                count+=t*(l-q1);
+                t=0;
+                q1++;
+            }
+            
+            
+            
+        }
+        if(t!=0){
+            count+=t*(l-q1);
+        }
+        q1=0,w=0;
+        int k=i;
+        while(q1<l && w < r){
+            if(p[q1]<=q[w]){
+                a[k++]=p[q1];
+                q1++;
+            }
+            else{
+                a[k++]=q[w++];
+            }
+        }
+        while(q1<l){
+            a[k++]=p[q1++];
+        }
+        while(w<r){
+            a[k++]=q[w++];
+        }
+    }
+    void ms(vector<int>&a,int i,int j){
+        if(i==j)return;
+        int mid=i+(j-i)/2;
+        ms(a,i,mid);
+        ms(a,mid+1,j);
+        merge(a,i,mid,j);
+    }
+    int reversePairs(vector<int>& nums) {
+        int n=nums.size();
+        ms(nums,0,n-1);
+        return count;
+    }
+};
