@@ -1,0 +1,53 @@
+**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head== NULL || head->next ==NULL )return head;
+        ListNode* rest_head= reverseList(head->next);
+        ListNode* rest_tail = head->next;
+        rest_tail ->next =head;
+        head->next = NULL;
+        return rest_head;
+    }
+};
+
+
+
+
+//Second using looop
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode * solve(ListNode * s){
+        ListNode * p=NULL, *q=NULL;
+        while(s!=NULL){
+            p=q;
+            q=s;
+            s=s->next;
+            q->next=p;
+        }
+        return q;
+    }
+
+    ListNode* reverseList(ListNode* head) {
+        return solve(head);
+    }
+};
