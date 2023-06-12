@@ -1,0 +1,78 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        int size=0;
+        ListNode* temp=head;
+        while(temp!=NULL){
+            size++;
+            temp=temp->next;
+        }
+        if(n>size){
+            return head;
+        }
+        size=size-n+1;//from starting to be deleted
+        temp=head;
+        ListNode*f=NULL;
+        
+        if(size==1){
+            f=temp;
+            temp=temp->next;
+            delete(f);
+            return temp;
+        }
+        while(size>1  ){
+            size--;
+            f=temp;
+            temp=temp->next;
+        }
+        f->next=temp->next;
+        delete(temp);
+        return head;
+       
+
+    }
+};
+
+
+//Second Approach take eactly TC n  SC =1
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* a, *b;//a is slow poiter, b is fast ponter
+        ListNode *start = new ListNode();
+        a=start;
+        b=start;
+        start->next=head;
+        for(int i=1;i<=n;i++){
+            b=b->next;
+        }
+        while(b->next!=NULL){
+            b=b->next;
+            a=a->next;
+        }
+        a->next=a->next->next;
+        return start->next;
+       
+    }
+};
