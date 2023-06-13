@@ -1,0 +1,68 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        unordered_set<ListNode *>s;
+        while(headA!=NULL){
+            s.insert(headA);
+            headA=headA->next;
+        
+        
+        }
+        while(headB!=NULL){
+            if(s.find(headB)!=s.end())return headB;
+            
+            headB=headB->next;
+        
+        
+        }
+        return NULL;
+    }
+};
+
+//Second Approach TC0(n+m) , SC O(1)
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *p=headA, * q=headB;
+        while(p!=NULL && q!=NULL){
+            if(p!=NULL && q!=NULL && p==q){
+                return p;
+            }
+            p=p->next;
+            q=q->next;
+            
+            if(p!=NULL && q!=NULL && p==q){
+                return p;
+            }
+
+            if(p== NULL && q==NULL){
+                return NULL;
+              
+            }
+            if(p==NULL){
+                swap(p,headB);
+            }
+            if(q==NULL){
+                swap(q,headA);
+            }
+        }
+        return NULL;
+    }
+};
+
