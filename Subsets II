@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<vector<int>>ans;
+    void solve(vector<int>&nums, int i , int n,vector<int>&t){
+        if(i==n+1)return;
+        ans.push_back(t);
+        int duplicate=INT_MIN;
+        for(int j=i;j<n;j++){
+            if(nums[j]!=duplicate){
+                duplicate=nums[j];
+                t.push_back(nums[j]);
+                solve(nums,j+1,n,t);
+                t.pop_back();
+            }
+        }
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<int>t;
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        solve(nums,0,n,t);
+        return ans;
+    }
+};
