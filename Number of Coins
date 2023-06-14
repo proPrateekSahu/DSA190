@@ -1,0 +1,36 @@
+class Solution{
+
+	public:
+    int dp[1000001];
+	int solve(int coins[], int m, int v){
+	    if(v==0 )return 0;
+	    if(v<0 )return INT_MAX;
+	    if(dp[v]!=-1)return dp[v];
+	    int res=INT_MAX;
+	    for(int i=0;i<=m;i++){
+	        if(coins[i]<=v){
+	           int r=solve(coins,m,v-coins[i]);
+	           if(r!=INT_MAX && r+1<res){
+	               res=r+1;
+	           }
+	           
+	        }
+	    }
+	    return dp[v]=res;
+	    
+	    
+	    
+	}
+	int minCoins(int coins[], int M, int V) 
+	{ 
+	    memset(dp,-1,sizeof(dp));
+	    int ans=solve(coins,M-1,V);
+	    if(ans!=INT_MAX){
+	        return ans;
+	    }else{
+	        return -1;
+	    } 
+	    // Your code goes here
+	} 
+	  
+};
