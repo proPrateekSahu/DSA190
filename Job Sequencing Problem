@@ -1,0 +1,35 @@
+class Solution 
+{
+    static bool cmp(Job a1, Job a2){
+        //dont know why but for changing the condition to > = below , the result is segmentaion fualt
+        return (a1.profit > a2.profit);
+    }
+    public:
+    //Function to find the maximum profit and the number of jobs done.
+    vector<int> JobScheduling(Job arr[], int n) 
+    {
+        int maxprofit=0, jobcount=0;
+        int d[n+1];
+        memset(d,-1,sizeof(d));
+        sort(arr,arr+n,cmp);
+        for(int i=0;i<n;i++){
+            int x=arr[i].dead;
+            while(x >0 &&d[x]!=-1){
+                x--;
+            }
+            
+            for(int j=x;j>0;j--){
+                if(d[j]==-1){
+                    d[j]=0;
+                    maxprofit+=arr[i].profit;
+                    jobcount++;
+                    break;
+                }
+            }
+            
+        }
+        return {jobcount, maxprofit};
+        
+        // your code here
+    } 
+};
