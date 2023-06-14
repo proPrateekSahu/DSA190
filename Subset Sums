@@ -1,0 +1,28 @@
+//Given a list arr of N integers, print sums of all subsets in it.
+
+ 
+class Solution
+{
+public:
+    vector<int>ans;
+    void solve(vector<int> & arr, int i ,int n, int num){
+        if(i==n){
+            ans.push_back(num);
+            return;
+        }
+        
+        solve(arr,i+1,n,num);
+        
+        solve(arr,i+1,n,num+ arr[i]);
+        
+    }
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+        int n=arr.size();
+        int i=0;
+        solve(arr,0,N,0);
+        return ans;
+        
+        // Write Your Code here
+    }
+};
