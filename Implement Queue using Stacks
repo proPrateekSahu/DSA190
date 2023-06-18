@@ -1,0 +1,106 @@
+class MyQueue {
+public:
+    stack <int> s1, s2;
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {
+        while(!s1.empty()){
+            int x=s1.top();
+            s2.push(x);
+            s1.pop();
+
+        }
+        s1.push(x);
+        while(!s2.empty()){
+            int x= s2.top();
+            s1.push(x);
+            s2.pop();
+        }
+    }
+    
+    int pop() {
+        int x=s1.top();
+        s1.pop();
+        return x;
+    }
+    
+    int peek() {
+        int x= s1.top();
+        return x;
+    }
+    
+    bool empty() {
+        return s1.empty();
+    }
+};
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->peek();
+ * bool param_4 = obj->empty();
+ */
+ 
+ 
+ ____________________________________________________________________________________________________________________________________________
+ 
+ TC O(1) for inserrtion push and O(1) amortised for pop and top operation
+ 
+ class MyQueue {
+public:
+    stack<int> i,o;
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {
+        i.push(x);
+    }
+    
+    int pop() {
+        if(!o.empty()){
+            int x=o.top();
+            o.pop();
+            return x;
+        }
+        while(!i.empty()){
+            int x= i.top();
+            o.push(x);
+            i.pop();
+        }
+        int x= o.top();
+        o.pop();
+        return x;
+    }
+    
+    int peek() {
+        if(!o.empty()){
+            
+            return o.top();
+        }
+        while(!i.empty()){
+            int x= i.top();
+            o.push(x);
+            i.pop();
+        }
+        return o.top();
+    }
+    
+    bool empty() {
+        if(i.empty() && o.empty())return true;
+        return false;
+    }
+};
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->peek();
+ * bool param_4 = obj->empty();
+ */
