@@ -1,0 +1,32 @@
+1
+5
+5 -2 9 -7 3
+Sample Output 1:
+9 5 3 -2 -7
+Explanation Of Sample Input 1:
+9 Is the largest element, hence it’s present at the top. Similarly 5>3, 3>-2 and -7 being the smallest element is present at the last.
+
+________________________________________________________________________________________________________________________________________
+
+#include <bits/stdc++.h> 
+void insert(stack<int>& s, int temp){
+	if(s.size()==0 || s.top()< temp){
+		s.push(temp);
+		return;
+	}
+	int x= s.top();
+	s.pop();
+	insert(s,temp);
+	s.push(x);
+	return ;
+	
+}
+void sortStack(stack<int> &stack)
+{
+	if(stack.size()<=1)return ;
+	int temp= stack.top();
+	stack.pop();
+	sortStack(stack);
+	insert(stack, temp);
+	// Write your code here
+}
