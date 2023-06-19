@@ -1,0 +1,64 @@
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        vector<int>l;
+        vector<int>r;
+        vector<int>w;
+        stack<int>s;
+        vector<int>a;
+        vector<int>b;
+        int n=heights.size();
+        int pi=-1;
+        int ans=INT_MIN;
+        for(int i=0;i<n;i++){
+            if(s.size()==0){
+                l.push_back(pi);
+            }
+            else if(s.size()>0 && heights[s.top()]<heights[i]){
+                l.push_back(s.top());
+            }
+            else if(s.size()>0 && heights[s.top()]>= heights[i]){
+                while(s.size()>0 && heights[s.top()]>=heights[i]){
+                    s.pop();
+                }
+                if(s.empty()){
+                    l.push_back(pi);
+                }
+                else{
+                    l.push_back(s.top());
+                }
+            }
+            s.push(i);
+        }
+        pi=n;
+        while(s.size()>0){
+            s.pop();
+        }
+        for(int i=n-1;i>=0;i--){
+            if(s.size()==0){
+                r.push_back(pi);
+            }
+            else if(s.size()>0 && heights[s.top()]<heights[i]){
+                r.push_back(s.top());
+            }
+            else if(s.size()>0 && heights[s.top()]>= heights[i]){
+                while(s.size()>0 && heights[s.top()]>=heights[i]){
+                    s.pop();
+                }
+                if(s.empty()){
+                    r.push_back(pi);
+                }
+                else{
+                    r.push_back(s.top());
+                }
+            }
+            s.push(i);
+        }
+        reverse(r.begin(),r.end());
+        for(int i =0;i<n;i++){
+            int u=(r[i]-l[i]-1)* heights[i];
+            ans=max(ans,u);
+        }
+        return ans;
+    }
+};
