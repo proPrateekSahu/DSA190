@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string intToRoman(int num) {
+        unordered_map<int,string> m;
+        string s="";
+        m.insert({1,"I"});
+        m.insert({4,"IV"});
+        m.insert({5,"V"});
+        m.insert({9,"IX"});
+        m.insert({10,"X"});
+        m.insert({40,"XL"});
+        m.insert({50,"L"});
+        m.insert({90,"XC"});
+        m.insert({100,"C"});
+        m.insert({400,"CD"});
+        m.insert({500,"D"});
+        m.insert({900,"CM"});
+        m.insert({1000,"M"});
+        
+        int arr[13]={1,4,5,9,10,40,50,90,100,400,500,900,1000};
+        int j=12;
+        for(int i=num;i>0;){
+            if(i/arr[j]>0){
+                for(int k=0;k<i/arr[j];k++)
+                s+=m[arr[j]];
+                i-=arr[j]*(i/arr[j]);
+                // j--;
+            }
+            j--;
+            
+        }
+        
+        return s;
+    }
+};
