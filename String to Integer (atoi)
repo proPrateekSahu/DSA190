@@ -1,0 +1,49 @@
+#define ll long long
+class Solution {
+public:
+    int myAtoi(string s) {
+        ll ans=0;
+        int n=s.length();
+        if(n==0)return ans;
+        int i=0;
+        bool f=false;
+        while(s[i]==' '){
+            i++;
+        }
+        if(s[i]=='-'){
+                f=true;
+
+                i++;
+            }
+            else if(s[i]=='+'){
+                i++;
+            }
+
+        while(i<n){
+            if(s[i]-'0' >= 0 && s[i]-'0' <= 9){
+                int z=(int)(s[i]-'0');
+                // cout<<z<<"+";
+                if(ans>INT_MAX){
+                    break;
+                }
+                ans=ans*10+ z;
+                // cout<<ans<<"-";
+                i++;
+            }
+            else{
+            break;
+            }
+
+        }
+        if(f){
+            ans=-1*ans;
+        }
+        if(ans <=INT_MIN){
+            ans=INT_MIN;
+        }
+        else if(ans >= INT_MAX){
+            ans=INT_MAX;
+        }
+        return (int)ans;
+    }
+};
