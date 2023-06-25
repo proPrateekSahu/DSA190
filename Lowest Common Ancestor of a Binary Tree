@@ -1,0 +1,35 @@
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+Output: 3
+Explanation: The LCA of nodes 5 and 1 is 3.
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+
+class Solution {
+public:
+    TreeNode* solve(TreeNode* r, TreeNode* p, TreeNode* q){
+        if(r==NULL)return r;
+        if(r->val== p->val)return r;
+        if(r->val== q->val)return r;
+        TreeNode * a= solve(r->left,p,q);
+        TreeNode* b=solve(r->right,p,q);
+        if(a!=NULL && b!=NULL)return r;
+        if(a==NULL)return b;
+        return a;
+
+
+    }
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        return solve(root,p,q);
+        
+    }
+};
