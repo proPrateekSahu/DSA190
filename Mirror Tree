@@ -1,0 +1,34 @@
+Given a Binary Tree, convert it into its mirror.
+
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child /
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+}; */
+
+class Solution {
+  public:
+  void solve(Node * r){
+      if(r==NULL)return ;
+      if(!r->left && !r->right){
+          return ;
+      }
+      swap(r->left,r->right);
+      solve(r->left);
+      solve(r->right);
+  }
+    // Function to convert a binary tree into its mirror tree.
+    void mirror(Node* node) {
+        if(node==NULL)return;
+        solve(node);
+        // code here
+    }
+};
