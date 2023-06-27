@@ -1,0 +1,21 @@
+class Solution
+{
+    void solve(Node* r, int k ,int & counter, int & ans){
+        if(r==NULL)return ;
+        solve(r->right, k, counter,ans);
+        counter++;
+        if(counter == k){
+            ans=r->data;
+            return;
+        }
+        solve(r->left, k , counter,ans);
+    }
+    public:
+    int kthLargest(Node *root, int K)
+    {
+        int counter=0, ans=0;
+        solve(root, K, counter, ans);
+        return ans;
+        //Your code here
+    }
+};
