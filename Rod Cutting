@@ -1,0 +1,31 @@
+Given a rod of length N inches and an array of prices, price[]. price[i] denotes the value of a piece of length i. Determine the maximum value obtainable by cutting up the rod and selling the pieces.
+
+___________________________________________________________________________________________________________________________
+
+class Solution{
+    public:
+    int dp[1005];
+    int fun(int l,vector<int> &prices){
+        if(l==0)return 0;
+        if(dp[l]!=-1) return dp[l];
+        int ans=0;
+        for(int i=1;i<=prices.size();i++){
+            if(l-i>=0){
+                ans=max(ans,fun(l-i,prices)+prices[i-1]);
+            }
+        }
+        return dp[l]=ans;
+    }
+    
+    
+    
+    
+  
+    int cutRod(int price[], int n) {
+        
+        memset(dp,-1,sizeof(dp));
+        vector<int> prices(price,price+n);
+        return fun(n,prices);
+        //code here
+    }
+};
