@@ -1,0 +1,25 @@
+class Solution{
+    int t[1001][1002];
+    int solve(int arr[], int size, int n , int prev_element_pos ){
+        if(n==0)return 0;
+        if(t[n][prev_element_pos]!=-1)return t[n][prev_element_pos];
+        int sum;
+        sum=solve(arr,size,n-1,prev_element_pos);
+        if(prev_element_pos ==size+1 || arr[n-1]<arr[prev_element_pos-1]){
+            sum=max(sum,arr[n-1]+solve(arr,size,n-1,n));
+        }
+        return t[n][prev_element_pos]=sum;
+    }
+
+	public:
+	int maxSumIS(int arr[], int n)  
+	{
+	    memset(t,-1,sizeof(t));
+	    int size=n;
+	    return solve(arr, size, n, n+1);
+	    // Your code goes here
+	}  
+
+
+TC N^2, SC= N*N , where n is size of the given array
+
