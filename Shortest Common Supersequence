@@ -1,0 +1,61 @@
+class Solution {
+public:
+    int dp[1001][1001];
+    
+    string shortestCommonSupersequence(string str1, string str2) {
+        memset(dp,0,sizeof(dp));
+        memset(dp1,0,sizeof(dp));
+        string A=str1;
+        string B=str2;
+        int m=str1.length();
+        int n=str2.length();
+        for(int i=1;i<m+1;i++){
+            for(int j=1;j<n+1;j++){
+               
+               if(A[i-1] == B[j-1]){
+                    dp[i][j]=1+dp[i-1][j-1];
+                }
+                else{
+                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+                
+                    
+        }
+        
+        int a=m,b=n;
+        string ans;
+        while(a>0 && b>0){
+            if(str1[a-1]==str2[b-1]){
+                ans.push_back(str1[a-1]);
+                a--;
+                b--;
+            }
+            else{
+                if(dp[a-1][b]>dp[a][b-1]){
+                    ans.push_back(str1[a-1]);
+                    a--;
+                }
+                else{
+                    ans.push_back(str2[b-1]);
+                    b--;
+                }
+            }
+
+        }
+        while(a>0){
+            ans.push_back(str1[a-1]);
+            a--;
+        }
+        
+        while(b>0){
+            ans.push_back(str2[b-1]);
+            b--;
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+
+            
+        
+    }
+};
