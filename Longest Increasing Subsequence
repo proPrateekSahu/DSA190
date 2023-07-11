@@ -1,0 +1,52 @@
+class Solution {
+public:
+    int t[2502][2502];
+    int solve(vector<int>&nums, int n, int prev_element_pos){
+        int N=nums.size();
+        if(n==0)return 0;
+        if(t[n][prev_element_pos]!=-1)return t[n][prev_element_pos];
+        int len;
+        len=solve(nums,n-1,prev_element_pos);//not taken
+        if(prev_element_pos ==N+1 || nums[n-1]<nums[prev_element_pos-1]){
+            len = max(len,1+ solve(nums,n-1,n));//take
+        }
+        return t[n][prev_element_pos]=len;
+
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        memset(t,-1,sizeof(t));
+        int n=nums.size();
+        return solve(nums,n,n+1);
+    }
+
+};
+
+
+________________________________________________________________________________________________________
+
+class Solution {
+public:
+    
+  
+    int lengthOfLIS(vector<int>& nums) {
+        
+        
+        int n=nums.size();
+        int t[n+1][n+2];
+        for(int i=0;i<=n+1;i++){
+            t[0][i]=0;
+        }
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=n+1;j++){
+                int len;
+                len= t[i-1][j];
+                if(j==n+1 || nums[i-1]<nums[j-1]){
+                    len=max(len,1+t[i-1][i]);
+                }
+                t[i][j]=len;
+            }
+        }
+      
+        return t[n][n+1];
+    }
+};
