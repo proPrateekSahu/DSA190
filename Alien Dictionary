@@ -1,0 +1,51 @@
+class Solution{
+    public:
+    string findOrder(string dict[], int N, int K) {
+        string ans;
+        vector<int>adj[K];
+        vector<int>indeg(K,0);
+        queue<int>q;
+        for(int i=0;i<N-1;i++){
+            string a=dict[i];
+            string b=dict[i+1];
+            int ii=0,jj=0;
+            int len = min(a.length(),b.length());
+            while(ii < len && a[ii]==b[jj]){
+                ii++;
+                jj++;
+            }
+            
+            if(ii < len && jj<len){
+                int x=a[ii]-'a';
+                int y=b[jj]-'a';
+                adj[x].push_back(y);
+                indeg[y]++;
+            }
+            
+            
+        }
+        for(int i=0;i<K;i++){
+            if(indeg[i]==0)
+            {
+                q.push(i);
+            }
+        }
+        while(!q.empty()){
+            int  node = q.front();
+            char c=node + 97;
+            // cout<<c<<"*";
+            q.pop();
+            ans=ans+c;
+            for(auto it: adj[node]){
+                indeg[it]--;
+                if(indeg[it]==0){
+                    q.push(it);
+                }
+            }
+        }
+        // cout<<ans;
+        return ans;
+        
+        //code here
+    }
+};
