@@ -1,0 +1,31 @@
+#define p pair<int,int>
+class Solution
+{
+	public:
+	//Function to find the shortest distance of all the vertices
+    //from the source vertex S.
+    vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
+    {
+        
+        vector<int>dist(V,1e9);
+        dist[S]=0;
+        priority_queue<p,vector<p>,greater<p>>minh;
+        minh.push({0,S});
+        
+        while(!minh.empty()){
+            auto weightVer = minh.top();
+            minh.pop();
+            int weight= weightVer.first;
+            int vertex= weightVer.second;
+            for(auto it: adj[vertex]){
+                if(weight + it[1] < dist[it[0]]){
+                    dist[it[0]]=weight + it[1] ;
+                    minh.push({dist[it[0]],it[0]});
+                }
+            }
+        }
+        
+        return dist;
+        // Code here
+    }
+};
