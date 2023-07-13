@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int wordLadderLength(string startWord, string targetWord, vector<string>& wordList) {
+        // Code here
+        unordered_map<string,int>mp;
+        int n=wordList.size();
+        for(int i=0;i<n;i++){
+            if(wordList[i]==startWord)continue;
+            mp[wordList[i]]++;
+        }
+        queue<pair<string,int>>q;
+        q.push({startWord,1});
+        while(!q.empty()){
+            auto word = q.front().first;
+            auto len= q.front().second;
+            q.pop();
+            if(word==targetWord){
+                return len;
+            }
+            for(int i=0;i<word.length();i++){
+                char ch=word[i];
+                for(char c= 'a';c<='z';c++){
+                    word[i]=c;
+                    if(mp.find(word)!=mp.end()){
+                        mp.erase(word);
+                        q.push({word,len+1});
+                    }
+                    
+                }
+                word[i]=ch;
+                
+            }
+        }
+        return 0;
+    }
+};
