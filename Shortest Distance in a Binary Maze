@@ -1,0 +1,43 @@
+class Solution {
+  public:
+    int shortestPath(vector<vector<int>> &grid, pair<int, int> source,
+                     pair<int, int> destination) {
+        // code here
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>>dist(n,vector<int>(m,1e9));
+        dist[source.first][source.second]=0;
+        queue<pair<int,pair<int,int> >>q;
+        // cout<<n<<" "<<m<<destination.second<<destination.first<<source.second<<source.first<<"*";
+        
+        if(grid[destination.first][destination.second]==0 || grid[source.first][source.second]==0){
+            return -1;
+            // cout<<"))";
+        }
+        
+        q.push({0,{source.first,source.second}});
+        
+        int dir[][2]={{-1,0},{0,-1},{1,0},{0,1}};
+        
+        while(!q.empty()){
+            auto node = q.front();
+            int distance= node.first;
+            int x= node.second.first;
+            int y= node.second.second;
+            if(x==destination.first && y==destination.second){
+                return distance;
+            }
+            q.pop();
+            for(int i=0;i<4;i++){
+                int nx=x+dir[i][0];
+                int ny=y+dir[i][1];
+                if(nx >=0 && ny >=0 && nx <n && ny < m && grid[nx][ny]==1 && (distance + 1 < dist[nx][ny]) ){
+                    dist[nx][ny]=distance + 1;
+                    q.push({dist[nx][ny],{nx,ny}});
+                }
+            }
+            
+        }
+        return -1;
+        
+    }
