@@ -1,0 +1,36 @@
+#define p pair< int, pair<int,int> >
+class Solution {
+public:
+    int minimumEffortPath(vector<vector<int>>& heights) {
+        int n=heights.size();
+        int m=heights[0].size();
+        vector<vector<int>>dist(n,vector<int>(m,1e9));
+        dist[0][0]=0;
+        priority_queue<p,vector<p>,greater<p>>minh;
+        minh.push({0,{0,0}});//{patheffort, {x, y}}
+
+        int dir[][2]={{-1,0},{0,-1},{1,0},{0,1}};
+
+        while(!minh.empty()){
+            auto node= minh.top();
+            minh.pop();
+            int patheffort=node.first;
+            int x= node.second.first;
+            int y= node.second.second;
+            if(x==n-1 && y==m-1){
+                return patheffort;
+            }
+            for(int i=0;i<4;i++){
+                int nx=x+dir[i][0];
+                int ny=y+dir[i][1];
+                if(nx>=0 && ny>=0 && nx<n && ny <m && max(patheffort , abs(heights[nx][ny]-heights[x][y])) < dist[nx][ny]){
+                    dist[nx][ny]=max(patheffort , abs(heights[nx][ny]-heights[x][y]));
+                    minh.push({dist[nx][ny],{nx,ny}});
+                }
+            }
+        }
+        return -1;
+
+        
+    }
+};
