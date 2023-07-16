@@ -1,0 +1,34 @@
+#define p pair< int, int>
+
+class Solution {
+  public:
+    int minimumMultiplications(vector<int>& arr, int start, int end) {
+        // code here
+        vector<int>dist(1e5,1e9);
+        dist[start]=0;
+        queue<p>q;
+        q.push({0,start});
+        
+        while(!q.empty()){
+            auto it = q.front();
+            q.pop();
+            
+            int node= it.second;
+            int steps= it.first;
+            
+            for(auto itr: arr){
+                int newnode= node*itr % 100000;
+                if(steps+1<dist[newnode]){
+                    dist[newnode]=steps+1;
+                    if(newnode==end){
+                        return dist[newnode];
+                    }
+                    q.push({steps+1,newnode});
+                }
+            }
+            
+        }
+        if(dist[end]==1e9)return -1;
+        return dist[end];
+    }
+};
