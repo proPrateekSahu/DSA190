@@ -1,0 +1,40 @@
+//used floyd's warshall , we can use dijistra's also for every node
+class Solution {
+  public:
+    int findCity(int n, int m, vector<vector<int>>& edges,
+                 int distanceThreshold) {
+                     vector<vector<int>>dist(n,vector<int>(n,1e9));
+                     for(int i=0;i<m;i++){
+                        int u=edges[i][0];
+                        int v=edges[i][1];
+                        int wt=edges[i][2];
+                        dist[u][v]=wt;
+                        dist[v][u]=wt;
+                     }
+                     for(int via=0;via<n;via++){
+                         for(int i=0;i<n;i++){
+                             dist[i][i]=0;
+                             for(int j=0;j<n;j++){
+                                 
+                                 dist[i][j]=min(dist[i][j],dist[i][via]+dist[via][j]);
+                             }
+                         }
+                     }
+                     int mini=1e9;
+                     int ans;
+                     for(int i=0;i<n;i++){
+                         int count=0;
+                         for(int j=0;j<n;j++){
+                             if(dist[i][j]<=distanceThreshold){
+                                 count++;
+                             }
+                         }
+                         if(mini >= count){
+                             mini=count;
+                             ans=i;
+                         }
+                     }
+                    
+                     return ans;
+                 }
+};
