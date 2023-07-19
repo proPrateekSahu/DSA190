@@ -1,0 +1,25 @@
+class Solution {
+  public:
+	void shortest_distance(vector<vector<int>>&matrix){
+	    // Code here
+	    int n=matrix.size();
+	   // int m=matrix[0].size();
+	    for(int via=0;via<n;via++){
+	        for(int i=0;i<n;i++){
+	            for(int j=0;j<n;j++){
+	                if(matrix[i][j]==-1)matrix[i][j]=1e9;//making it a large value
+	                matrix[i][j]=min(matrix[i][j],matrix[i][via]+matrix[via][j]);
+	            }
+	        }
+	    }
+	    for(int i=0;i<n;i++){
+	        for(int j=0;j<n;j++){
+	            if(matrix[i][j]==1e9)matrix[i][j]=-1;//restoring the answer to -1 instead of infinity
+	        }
+	    }
+	    
+	}
+};
+
+TC O(n3)
+SC O(n2) since taking the 2d array in ordere to solve the quesion that is the shortest path from all verttices to all other vertices
